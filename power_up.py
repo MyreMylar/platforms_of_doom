@@ -1,34 +1,43 @@
-import pygame
-import random
-
-
-class PowerUp:
-
-    def __init__(self, spawn_pos):
-        self.all_types = ["double_jump", "machine_gun", "explosion"]
-        self.type = random.choice(self.all_types)
-
-        if self.type == "double_jump":
-            self.image = pygame.image.load("images/double_jump_power_up.png")
-        elif self.type == "machine_gun":
-            self.image = pygame.image.load("images/machine_gun_power_up.png")
-        else:
-            self.image = pygame.image.load("images/explosion_power_up.png")
-        
-        self.rect = pygame.Rect([spawn_pos[0]-8, spawn_pos[1]-8], (16, 16))
-        self.screen_rect = pygame.Rect([spawn_pos[0]-8, spawn_pos[1]-8], (16, 16))
-        
-        self.should_die = False
-
-    def update_screen_offset(self, screen_offset):
-        self.screen_rect.x = self.rect.x - screen_offset[0]
-        self.screen_rect.y = self.rect.y - screen_offset[1]
-
-    def update(self, players):
-        for player in players:
-            if player.rect.colliderect(self.rect):
-                player.add_active_power_up(self.type)
-                self.should_die = True
-        
-    def render(self, screen):
-        screen.blit(self.image, self.rect)
+# -------------------------------------------------------
+# Challenge
+# -------------
+#
+# Create a PowerUp class and implement it into the 'platforms_of_doom'
+# game (and code file) so that it meets the following goals
+#
+# - Displays on the screen as a small 16 pixel by 16 pixel
+#   rectangle.
+# - When touched by the player it 'dies' and is removed.
+# - A power up is created in the game every 20 seconds.
+# - The power ups appear on top of, and in the centre of,
+#   the platforms.
+#
+# Hints
+# --------
+# - You will need to use a list in the game code file
+#   to store the power ups after you create them.
+#
+# - Make things easy for yourself by looking at (and stealing)
+#   code that has already been written for this game. For
+#   example the platforms already render as simple rectangles
+#   and the players already appear in the centre of, and on
+#   top of the platforms.
+#
+# - There are examples of timers in several places in the
+#   code. Look for variables ending in 'acc' where I add
+#   'dt' or 'time_delta' which is just the (very small) difference
+#   in time between the current update loop and the previous one.
+#
+# - We are just trying to get the basics of a power up
+#   setup next week. Next time we'll go further and make
+#   them do something more exciting.
+#
+# Extra credit
+# --------------
+#
+#  - Stop more than two power ups from appearing at any one
+#    time so the screen doesn't fill with power ups
+#
+#  - Make sure power ups don't spawn where there is already a power
+#    up.
+# --------------------------------------------------------

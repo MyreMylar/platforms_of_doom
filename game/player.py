@@ -5,7 +5,6 @@ import math
 import random
 
 from game.bomb_weapon import BombWeapon
-from machine_gun_weapon import MachineGunWeapon
 from game.aim_reticule import Reticule
 
 
@@ -97,7 +96,6 @@ class Player:
         self.powerUpTimerMainCol = pygame.Color(200,50,50,255)
 
         self.bomb_weapon = BombWeapon()
-        self.machine_gun_weapon = MachineGunWeapon()
         self.active_weapon = self.bomb_weapon
         self.fireBomb = False
 
@@ -106,11 +104,6 @@ class Player:
             self.active_weapon.make_weapon_more_explosive()
         else:
             self.active_weapon.make_weapon_normal()
-
-        if self.is_active_power_up("machine_gun"):
-            self.active_weapon = self.machine_gun_weapon
-        else:
-            self.active_weapon = self.bomb_weapon
 
     def add_active_power_up(self, type_name):
         self.active_power_ups[type_name] = self.power_up_duration

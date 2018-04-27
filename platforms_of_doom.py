@@ -3,10 +3,8 @@ import pygame
 from pygame.locals import *
 
 from game.platform import Platform
-from player import Player, ControlScheme
-from power_up import PowerUp
-
-import random
+from game.player import Player, ControlScheme
+# from power_up import PowerUp # import your PowerUp class here once it is made
 
 
 def main():
@@ -51,9 +49,7 @@ def main():
     player2 = Player(players, platforms, 176, player2_controls)
     players.append(player2)
 
-    power_ups = []
-    power_up_acc = 0.0
-    power_up_timer = random.uniform(8.0, 15.0)
+    # create a list to store power ups, as well as some variables to run a timer
 
     clock = pygame.time.Clock()
 
@@ -76,26 +72,18 @@ def main():
 
         screen_offset = player1.get_screen_offset(screen_size, level_size)
 
-        # spawn power up when accumulator greater than timer
-        if power_up_acc > power_up_timer:
-            if len(power_ups) < 2:
-                random_platform = random.choice(platforms)
-                power_up_spawn_pos = [random_platform.rect.centerx, random_platform.rect.centery-15]
-                power_ups.append(PowerUp(power_up_spawn_pos))
-            power_up_acc = 0.0  # reset accumulator
-            power_up_timer = random.uniform(10.0, 20.0)  # randomise timer (don't do this for fire rate of machine gun!)
-        else:
-            power_up_acc += time_delta  # increase accumulator by dt
+        # spawn power ups here when a time accumulator variable is greater than a timer variable that you make
+        #
 
         for platform in platforms:
             platform.update_screen_offset(screen_offset)
             platform.render(screen)
 
-        for power_up in power_ups:
-            power_up.update(players)
-            power_up.update_screen_offset(screen_offset)
-            power_up.render(screen)
-        power_ups[:] = [power_up for power_up in power_ups if not power_up.should_die]
+        # for power_up in power_ups:
+        #    power_up.update(players)
+        #    power_up.update_screen_offset(screen_offset)
+        #    power_up.render(screen)
+        # power_ups[:] = [power_up for power_up in power_ups if not power_up.should_die]
 
         for projectile in projectiles:
             projectile.update(time_delta, gravity, platforms, players, explosions)
