@@ -9,6 +9,22 @@ from machine_gun_weapon import MachineGunWeapon
 from game.aim_reticule import Reticule
 
 
+# ------------------------------------------------
+# Challenge 3
+# -------------
+#
+# 1. Find where we create the Bomb weapon
+#    in the Player class __init__ function and create the
+#    machine gun weapon at the same time -
+#    assigning it to a new variable (1 line)
+#
+# 2. In the update_weapon_power_ups() function
+#    set the self.active_weapon variable to our
+#    new machine gun weapon variable if
+#    "machine_gun" is the active power up.
+#    Otherwise (or else) switch self.active_weapon
+#    back to our bomb weapon.
+# --------------------------------------------------
 class ControlScheme:
 
     def __init__(self):
@@ -97,7 +113,6 @@ class Player:
         self.powerUpTimerMainCol = pygame.Color(200,50,50,255)
 
         self.bomb_weapon = BombWeapon()
-        self.machine_gun_weapon = MachineGunWeapon()
         self.active_weapon = self.bomb_weapon
         self.fireBomb = False
 
@@ -106,11 +121,6 @@ class Player:
             self.active_weapon.make_weapon_more_explosive()
         else:
             self.active_weapon.make_weapon_normal()
-
-        if self.is_active_power_up("machine_gun"):
-            self.active_weapon = self.machine_gun_weapon
-        else:
-            self.active_weapon = self.bomb_weapon
 
     def add_active_power_up(self, type_name):
         self.active_power_ups[type_name] = self.power_up_duration
