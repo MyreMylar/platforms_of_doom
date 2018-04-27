@@ -1,0 +1,5 @@
+v2
+---
+- Dan drawn player sprites
+- more varied characters? - character select
+- aiming reticule angle change needs acceleration to allow for small adjustments.
